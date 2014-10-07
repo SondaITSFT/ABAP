@@ -1,0 +1,35 @@
+SPOOL C:\SATI\LOG_DROP_TABLES_SAP_2.TXT
+
+PROMPT --**************************** [ INICIO DA APLICAÇAO ] ***********************************--;
+SET SERVEROUTPUT ON 
+SET LINESIZE 2000 
+SET PAGESIZE 4000 
+SET DEFINE OFF 
+SET TRIMSPOOL ON
+SET TRIMS ON
+
+PROMPT --**************************** [ AMBIENTE DA APLICAÇAO ] *********************************--;
+SELECT * FROM GLOBAL_NAME; 
+SELECT INSTANCE_NAME, VERSION FROM V$INSTANCE; 
+SHOW USER; 
+
+PROMPT --**************************** [ DATA DA EXECUCAO ] *************************************--;
+SELECT TO_CHAR(SYSDATE,'DD/MM/YYYY HH24:MI:SS') "SYSDATE" FROM DUAL; 
+
+PROMPT --********************************* [ TABELA ZLF_USUARIO ] *******************************************--;
+DROP TABLE ZLF_USUARIO
+/
+DROP PUBLIC SYNONYM ZLF_USUARIO
+/
+CREATE PUBLIC SYNONYM ZLF_USUARIO FOR ZLF_USUARIO@LF
+/
+
+PROMPT --********************************* [ TABELA ZPWS_USER ] *******************************************--;
+DROP TABLE ZPWS_USER
+/
+DROP PUBLIC SYNONYM ZPWS_USER
+/
+CREATE PUBLIC SYNONYM ZPWS_USER FOR ZPWS_USER@LF
+/
+
+SPOOL OFF
